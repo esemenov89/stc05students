@@ -1,18 +1,18 @@
 package main.model.dao;
 
-import main.model.entity.Lesson;
+import main.model.entity.LessonEntity;
 
 import java.util.List;
 
 public interface LessonDao {
 
-    List<Lesson> findAll();
+/*    List<LessonEntity> findAll();
 
-    Lesson findById(long id);
+    LessonEntity findById(long id);
 
-    int insert(Lesson lesson);
+    int insert(LessonEntity lesson);
 
     int delete(long id);
 
-    int update(Lesson lesson);
+    int update(LessonEntity lesson);*/
 }

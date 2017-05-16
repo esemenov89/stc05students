@@ -1,9 +1,14 @@
 package main.model.impl;
 
 import main.model.dao.StudentDao;
-import main.model.entity.Student;
+import main.model.entity.StudentEntity;
+import main.model.entity.UsersEntity;
 import main.services.DataSourceFactory;
+import main.services.HibernateSessionFactory;
 import org.apache.log4j.Logger;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
@@ -17,58 +22,34 @@ public class StudentDaoImpl implements StudentDao {
     private static final Logger LOG = Logger.getLogger(StudentDaoImpl.class);
     private DataSource dataSource = DataSourceFactory.getDataSource();
 
-    public List<Student> findAll() {
-        List<Student> list = new ArrayList<>();
-        try {
-            Connection connection = dataSource.getConnection();
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM student");
-            while (resultSet.next()) {
-                Student student = new Student();
-                student.setId(resultSet.getLong(1));
-                student.setName(resultSet.getString(2));
-                student.setAge(resultSet.getInt(3));
-                student.setGroupId(resultSet.getLong(4));
-                student.setGroup(new GroupDaoImpl().findById(student.getGroupId()));
-                list.add(student);
-            }
-            resultSet.close();
-            statement.close();
-            connection.close();
-        } catch (
-                SQLException e)
+    public List<StudentEntity> findAll() {
+        ArrayList<StudentEntity> students = new ArrayList<>();
 
-        {
-            e.printStackTrace();
-        }
-        return list;
+        Session session = HibernateSessionFactory.getSessionFactory().openSession();
+        List<StudentEntity> list = session.createCriteria(StudentEntity.class).list();
+
+        students=(ArrayList)list;
+
+        session.close();
+        return students;
     }
 
-    public Student findById(long id) {
-        Student student = null;
-        try {
-            Connection connection = dataSource.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM student WHERE id = ?");
-            preparedStatement.setLong(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                student = new Student();
-                student.setId(resultSet.getLong(1));
-                student.setName(resultSet.getString(2));
-                student.setAge(resultSet.getInt(3));
-                student.setGroupId(resultSet.getLong(4));
-                student.setGroup(new GroupDaoImpl().findById(student.getGroupId()));
-            }
-            resultSet.close();
-            preparedStatement.close();
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    public StudentEntity findById(int id) {
+        StudentEntity student = null;
+
+        Session session = HibernateSessionFactory.getSessionFactory().openSession();
+        Query query = session.createQuery("from StudentEntity where id = :id");
+        query.setParameter("id", id);
+        List list = query.list();
+
+        if(list.size()>0)
+            student = (StudentEntity)list.get(0);
+
+        session.close();
         return student;
     }
 
-    public int insert(Student student) {
+    public int insert(StudentEntity student) {
         int lastId = 0;
 
         if (student == null)
@@ -92,22 +73,16 @@ public class StudentDaoImpl implements StudentDao {
         return lastId;
     }
 
-    public int delete(long id) {
-        int result = 0;
-        try {
-            Connection connection = dataSource.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM student WHERE id = ?");
-            preparedStatement.setLong(1, id);
-            result = preparedStatement.executeUpdate();
-            preparedStatement.close();
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return result;
+    public void delete(int id) {
+        Session session = HibernateSessionFactory.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        StudentEntity student = (StudentEntity) session.get(StudentEntity.class, id);
+        session.delete(student);
+        transaction.commit();
+        session.close();
     }
 
-    public int update(Student student) {
+/*    public int update(Student student) {
         int result = 0;
 
         if (student == null)
@@ -128,26 +103,5 @@ public class StudentDaoImpl implements StudentDao {
             e.printStackTrace();
         }
         return result;
-    }
-
-/*
-
-    public int delete(Student student) {
-        if (student == null)
-            return 0;
-
-        return delete(student.getId());
-    }
-*/
-
-
-/*    public int save(Student student) {
-        if (student == null)
-            return 0;
-
-        if (student.getId() != 0)
-            return update(student);
-        else
-            return insert(student);
     }*/
 }

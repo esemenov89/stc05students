@@ -1,7 +1,7 @@
 package main.model.impl;
 
 import main.model.dao.JournalDao;
-import main.model.entity.Journal;
+import main.model.entity.JournalEntity;
 import main.services.DataSourceFactory;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
@@ -14,17 +14,17 @@ import java.util.List;
 @Repository
 public class JournalDaoImpl implements JournalDao {
 
-    private static final Logger LOG = Logger.getLogger(JournalDaoImpl.class);
+/*    private static final Logger LOG = Logger.getLogger(JournalDaoImpl.class);
     private static DataSource dataSource = DataSourceFactory.getDataSource();
 
-    public List<Journal> findAll() {
-        List<Journal> list = new ArrayList<>();
+    public List<JournalEntity> findAll() {
+        List<JournalEntity> list = new ArrayList<>();
         try {
             Connection connection = dataSource.getConnection();
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM journal");
             while (resultSet.next()) {
-                Journal journal = new Journal();
+                JournalEntity journal = new JournalEntity();
                 journal.setId(resultSet.getLong(1));
                 journal.setLessonId(resultSet.getLong(2));
                 journal.setStudentId(resultSet.getLong(3));
@@ -41,8 +41,8 @@ public class JournalDaoImpl implements JournalDao {
         return list;
     }
 
-    public Journal findById(long id) {
-        Journal journal = null;
+    public JournalEntity findById(long id) {
+        JournalEntity journal = null;
         try {
             Connection connection = dataSource.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM journal WHERE id = ?");
@@ -65,7 +65,7 @@ public class JournalDaoImpl implements JournalDao {
         return journal;
     }
 
-    public int insert(Journal journal) {
+    public int insert(JournalEntity journal) {
         int lastId = 0;
 
         if (journal == null)
@@ -104,7 +104,7 @@ public class JournalDaoImpl implements JournalDao {
         return result;
     }
 
-    public int update(Journal journal) {
+    public int update(JournalEntity journal) {
         int result = 0;
 
         if (journal == null)
@@ -124,5 +124,5 @@ public class JournalDaoImpl implements JournalDao {
             e.printStackTrace();
         }
         return result;
-    }
+    }*/
 }

@@ -1,19 +1,19 @@
 package main.model.dao;
 
 
-import main.model.entity.Journal;
+import main.model.entity.JournalEntity;
 
 import java.util.List;
 
 public interface JournalDao {
 
-    List<Journal> findAll();
+/*    List<JournalEntity> findAll();
 
-    Journal findById(long id);
+    JournalEntity findById(long id);
 
-    int insert(Journal group);
+    int insert(JournalEntity group);
 
     int delete(long id);
 
-    int update(Journal group);
+    int update(JournalEntity group);*/
 }

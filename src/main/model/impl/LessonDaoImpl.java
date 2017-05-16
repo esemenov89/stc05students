@@ -1,7 +1,7 @@
 package main.model.impl;
 
 import main.model.dao.LessonDao;
-import main.model.entity.Lesson;
+import main.model.entity.LessonEntity;
 import main.services.DataSourceFactory;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
@@ -13,17 +13,17 @@ import java.util.List;
 @Repository
 public class LessonDaoImpl implements LessonDao {
 
-    private static final Logger LOG = Logger.getLogger(LessonDaoImpl.class);
+/*    private static final Logger LOG = Logger.getLogger(LessonDaoImpl.class);
     private DataSource dataSource = DataSourceFactory.getDataSource();
 
-    public List<Lesson> findAll() {
-        List<Lesson> list = new ArrayList<>();
+    public List<LessonEntity> findAll() {
+        List<LessonEntity> list = new ArrayList<>();
         try {
             Connection connection = dataSource.getConnection();
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM lesson");
             while (resultSet.next()) {
-                Lesson lesson = new Lesson();
+                LessonEntity lesson = new LessonEntity();
                 lesson.setId(resultSet.getLong(1));
                 lesson.setGroupId(resultSet.getLong(2));
                 lesson.setGroup(new GroupDaoImpl().findById(lesson.getGroupId()));
@@ -41,8 +41,8 @@ public class LessonDaoImpl implements LessonDao {
         return list;
     }
 
-    public Lesson findById(long id) {
-        Lesson lesson = null;
+    public LessonEntity findById(long id) {
+        LessonEntity lesson = null;
         try {
             Connection connection = dataSource.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM lesson WHERE id = ?");
@@ -66,7 +66,7 @@ public class LessonDaoImpl implements LessonDao {
         return lesson;
     }
 
-    public int insert(Lesson lesson) {
+    public int insert(LessonEntity lesson) {
         int lastId = 0;
 
         if (lesson == null)
@@ -106,7 +106,7 @@ public class LessonDaoImpl implements LessonDao {
         return result;
     }
 
-    public int update(Lesson lesson) {
+    public int update(LessonEntity lesson) {
         int result = 0;
 
         if (lesson == null)
@@ -128,5 +128,5 @@ public class LessonDaoImpl implements LessonDao {
             e.printStackTrace();
         }
         return result;
-    }
+    }*/
 }

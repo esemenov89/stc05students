@@ -1,6 +1,6 @@
 package main.services;
 
-import main.model.entity.Student;
+import main.model.entity.StudentEntity;
 
 import java.util.List;
 
@@ -8,9 +8,9 @@ import java.util.List;
  * Created by Aleksei Lysov on 19.04.2017.
  */
 public interface StudentService {
-    List<Student> getAllStudents();
+    List<StudentEntity> getAllStudents();
     void deleteStudent(int id);
-    void insert(Student student);
-    void update(Student student);
-    Student findById(int id);
+    void insert(StudentEntity student);
+    //void update(StudentEntity student);
+    StudentEntity findById(int id);
 }

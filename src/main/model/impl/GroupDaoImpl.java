@@ -1,10 +1,9 @@
 package main.model.impl;
 
 import main.model.dao.GroupDao;
-import main.model.entity.Group;
+import main.model.entity.StudyGroupEntity;
 import main.services.DataSourceFactory;
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
@@ -15,17 +14,17 @@ import java.util.List;
 @Repository
 public class GroupDaoImpl implements GroupDao {
 
-    private static final Logger LOG = Logger.getLogger(GroupDaoImpl.class);
+/*    private static final Logger LOG = Logger.getLogger(GroupDaoImpl.class);
     private DataSource dataSource = DataSourceFactory.getDataSource();
 
-    public List<Group> findAll() {
-        List<Group> list = new ArrayList<>();
+    public List<StudyGroupEntity> findAll() {
+        List<StudyGroupEntity> list = new ArrayList<>();
         try {
             Connection connection = dataSource.getConnection();
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM study_group");
             while (resultSet.next()) {
-                Group group = new Group();
+                StudyGroupEntity group = new StudyGroupEntity();
                 group.setId(resultSet.getLong(1));
                 group.setName(resultSet.getString(2));
                 list.add(group);
@@ -39,15 +38,15 @@ public class GroupDaoImpl implements GroupDao {
         return list;
     }
 
-    public Group findById(long id) {
-        Group group = null;
+    public StudyGroupEntity findById(long id) {
+        StudyGroupEntity group = null;
         try {
             Connection connection = dataSource.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM study_group WHERE id = ?");
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                group = new Group();
+                group = new StudyGroupEntity();
                 group.setId(resultSet.getLong(1));
                 group.setName(resultSet.getString(2));
             }
@@ -60,7 +59,7 @@ public class GroupDaoImpl implements GroupDao {
         return group;
     }
 
-    public int insert(Group group) {
+    public int insert(StudyGroupEntity group) {
         int lastId = 0;
 
         if (group == null)
@@ -97,7 +96,7 @@ public class GroupDaoImpl implements GroupDao {
         return result;
     }
 
-    public int update(Group group) {
+    public int update(StudyGroupEntity group) {
         int result = 0;
 
         if (group == null)
@@ -115,5 +114,5 @@ public class GroupDaoImpl implements GroupDao {
             e.printStackTrace();
         }
         return result;
-    }
+    }*/
 }

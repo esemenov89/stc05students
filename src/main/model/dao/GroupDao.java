@@ -1,20 +1,20 @@
 package main.model.dao;
 
-import main.model.entity.Group;
+import main.model.entity.StudyGroupEntity;
 
 import java.util.List;
 
 public interface GroupDao {
 
-    List<Group> findAll();
+/*    List<StudyGroupEntity> findAll();
 
-    Group findById(long id);
+    StudyGroupEntity findById(long id);
 
-    int insert(Group group);
+    int insert(StudyGroupEntity group);
 
     int delete(long id);
 
-    int update(Group group);
+    int update(StudyGroupEntity group);
     //int delete(Group group);
-    //int save(Group group);
+    //int save(Group group);*/
 }

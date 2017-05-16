@@ -9,8 +9,8 @@
     </database>
     <schema id="3" parent="2" name="public">
       <ObjectId>2200</ObjectId>
-      <IntrospectionTimestamp>2017-05-02.09:31:59.854</IntrospectionTimestamp>
-      <IntrospectionStateNumber>619</IntrospectionStateNumber>
+      <IntrospectionTimestamp>2017-05-16.12:49:30.058</IntrospectionTimestamp>
+      <IntrospectionStateNumber>683</IntrospectionStateNumber>
       <Current>1</Current>
       <Visible>1</Visible>
     </schema>
@@ -99,7 +99,7 @@
     </table>
     <table id="23" parent="3" name="users">
       <ObjectId>16589</ObjectId>
-      <StateNumber>619</StateNumber>
+      <StateNumber>633</StateNumber>
     </table>
     <column id="24" parent="15" name="book_id">
       <Position>1</Position>
@@ -394,34 +394,45 @@
       <ColNames>id</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="74" parent="21" name="student__pk">
+    <index id="74" parent="21" name="student_pkey">
+      <ObjectId>16732</ObjectId>
+      <ColNames>id</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="75" parent="21" name="student_pkey">
+      <ObjectId>16733</ObjectId>
+      <ColNames>id</ColNames>
+      <UnderlyingIndexName>student_pkey</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <key id="76" parent="21" name="student__pk">
       <ObjectId>16657</ObjectId>
       <ColNames>id</ColNames>
       <UnderlyingIndexName>student__pk</UnderlyingIndexName>
     </key>
-    <column id="75" parent="22" name="id">
+    <column id="77" parent="22" name="id">
       <Position>1</Position>
       <DataType>integer|0</DataType>
       <NotNull>1</NotNull>
       <StateNumber>603</StateNumber>
     </column>
-    <column id="76" parent="22" name="name">
+    <column id="78" parent="22" name="name">
       <Position>2</Position>
       <DataType>varchar(255)|0</DataType>
       <StateNumber>603</StateNumber>
     </column>
-    <index id="77" parent="22" name="pk_study_group_id">
+    <index id="79" parent="22" name="pk_study_group_id">
       <ObjectId>16608</ObjectId>
       <ColNames>id</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="78" parent="22" name="pk_study_group_id">
+    <key id="80" parent="22" name="pk_study_group_id">
       <ObjectId>16609</ObjectId>
       <ColNames>id</ColNames>
       <UnderlyingIndexName>pk_study_group_id</UnderlyingIndexName>
       <Primary>1</Primary>
     </key>
-    <column id="79" parent="23" name="id">
+    <column id="81" parent="23" name="id">
       <Position>1</Position>
       <DataType>integer|0</DataType>
       <NotNull>1</NotNull>
@@ -429,25 +440,41 @@
       <SequenceName>users_id_seq</SequenceName>
       <DefaultExpression>nextval(&apos;users_id_seq&apos;::regclass)</DefaultExpression>
     </column>
-    <column id="80" parent="23" name="login">
+    <column id="82" parent="23" name="login">
       <Position>2</Position>
       <DataType>varchar(255)|0</DataType>
       <StateNumber>596</StateNumber>
     </column>
-    <column id="81" parent="23" name="password">
+    <column id="83" parent="23" name="password">
       <Position>3</Position>
       <DataType>varchar(255)|0</DataType>
       <StateNumber>596</StateNumber>
     </column>
-    <column id="82" parent="23" name="is_block">
+    <column id="84" parent="23" name="is_block">
       <Position>4</Position>
       <DataType>boolean|0</DataType>
       <StateNumber>598</StateNumber>
     </column>
-    <column id="83" parent="23" name="role">
+    <column id="85" parent="23" name="role">
       <Position>5</Position>
       <DataType>varchar(30)|0</DataType>
       <StateNumber>619</StateNumber>
     </column>
+    <column id="86" parent="23" name="enabled">
+      <Position>6</Position>
+      <DataType>boolean|0</DataType>
+      <StateNumber>633</StateNumber>
+    </column>
+    <index id="87" parent="23" name="users_pkey">
+      <ObjectId>16734</ObjectId>
+      <ColNames>id</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="88" parent="23" name="users_pkey">
+      <ObjectId>16735</ObjectId>
+      <ColNames>id</ColNames>
+      <UnderlyingIndexName>users_pkey</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
   </database-model>
 </dataSource>

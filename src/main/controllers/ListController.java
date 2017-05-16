@@ -1,6 +1,6 @@
 package main.controllers;
 
-import main.model.entity.Student;
+import main.model.entity.StudentEntity;
 import main.services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Olesya on 27.04.2017.
  */
@@ -17,13 +20,21 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping(value = "/list")
 public class ListController {
 
-    @Autowired
+
+    private List<StudentEntity> students = new ArrayList<>();
+
     private StudentService studentService;
+
+    @Autowired
+    public void setStudentService(StudentService studentService) {
+        this.studentService = studentService;
+    }
 
     @RequestMapping(method = RequestMethod.GET)
     public String showList(Model model) {
-        model.addAttribute("list", studentService.getAllStudents());
-        return "list";
+        students=studentService.getAllStudents();
+        model.addAttribute("list", students);
+        return "list/list";
     }
 
     @RequestMapping(method = RequestMethod.POST)
@@ -31,11 +42,13 @@ public class ListController {
                               @RequestParam(value = "age", required = true) String age,
                               @RequestParam(value = "group_id", required = true) String group_id) {
         ModelAndView mav = new ModelAndView();
-        Student student = new Student(name, Integer.parseInt(age),Long.parseLong(group_id));
+        StudentEntity student = new StudentEntity(name, Integer.parseInt(group_id),Integer.parseInt(age));
 
         studentService.insert(student);
         mav.setViewName("redirect:list");
 
         return mav;
     }
+
+
 }

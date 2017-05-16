@@ -1,64 +1,49 @@
 package main.model.impl;
 
 import main.model.dao.UserDao;
-import main.model.entity.User;
-import main.services.DataSourceFactory;
+import main.model.entity.UsersEntity;
+import main.services.HibernateSessionFactory;
+import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import org.hibernate.Query;
+import java.util.List;
 
 /**
- * Created by Aleksei Lysov on 20.04.2017.
+ *
  */
 @Repository
 public class UserDaoImpl implements UserDao{
 
-
-
     @Override
-    public User findLoginAndPassword(String login, String password) {
-        User user = null;
-        try{
-            Connection connection = DataSourceFactory.getDataSource().getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM users WHERE login = ? AND password = ?");
-            preparedStatement.setString(1, login);
-            preparedStatement.setString(2, password);
+    public UsersEntity findLoginAndPassword(String login, String password) {
+        UsersEntity user = null;
 
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next())
-                user = findByPk(resultSet.getInt(1));
+        Session session = HibernateSessionFactory.getSessionFactory().openSession();
+        Query query = session.createQuery("from UsersEntity where lower(login) = :paramName and lower(password) = :paramPass");
+        query.setParameter("paramName", login.toLowerCase());
+        query.setParameter("paramPass", password.toLowerCase());
+        List list = query.list();
 
-            resultSet.close();
-            preparedStatement.close();
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        if(list.size()>0)
+            user = (UsersEntity)list.get(0);
+
+        session.close();
         return user;
 }
 
-    private User findByPk(int id) {
-        User user = null;
-        try {
-            Connection connection = DataSourceFactory.getDataSource().getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM users WHERE id = ?");
-            preparedStatement.setLong(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                user = new User(resultSet.getInt(1),
-                        resultSet.getString(2),
-                        resultSet.getString(3),
-                        resultSet.getBoolean(4));
-            }
-            resultSet.close();
-            preparedStatement.close();
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    private UsersEntity findByPk(int id) {
+        UsersEntity user = null;
+
+        Session session = HibernateSessionFactory.getSessionFactory().openSession();
+        Query query = session.createQuery("from UsersEntity where id = :id");
+        query.setParameter("id", id);
+        List list = query.list();
+
+        if(list.size()>0)
+            user = (UsersEntity)list.get(0);
+
+        session.close();
         return user;
     }
 }

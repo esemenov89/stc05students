@@ -1,19 +1,19 @@
 package main.model.dao;
 
-import main.model.entity.Student;
+import main.model.entity.StudentEntity;
 
 import java.util.List;
 
 public interface StudentDao {
-    List<Student> findAll();
+    List<StudentEntity> findAll();
 
-    Student findById(long id);
+    StudentEntity findById(int id);
 
-    int insert(Student student);
+    int insert(StudentEntity student);
 
-    int delete(long id);
+    void delete(int id);
 
-    int update(Student student);
+    //int update(StudentEntity student);
 
     //int save(Student student);
 }
